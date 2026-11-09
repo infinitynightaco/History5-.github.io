@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>移民同鄉組織地圖 — Franke Malaysia</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Noto Sans TC',sans-serif; display:flex; flex-direction:column; height:100vh; }
+  header { background:#1b5e20; color:#fff; padding:.8rem 1.2rem; flex-shrink:0; }
+  header h1 { font-size:1.2rem; }
+  header p { font-size:.8rem; opacity:.8; }
+  #map { flex:1; }
+  .legend {
+    position:fixed; bottom:1.5rem; right:1rem; background:rgba(255,255,255,.95);
+    border-radius:8px; padding:.8rem 1rem; box-shadow:0 2px 8px rgba(0,0,0,.2);
+    z-index:1000; font-size:.8rem; max-width:220px;
+  }
+  .legend h3 { font-size:.85rem; margin-bottom:.5rem; color:#1b5e20; }
+  .legend-item { display:flex; align-items:center; gap:.5rem; margin:.25rem 0; }
+  .dot { width:12px; height:12px; border-radius:50%; display:inline-block; flex-shrink:0; }
+  footer { background:#f5f5f5; border-top:1px solid #ddd;
+            text-align:center; padding:.5rem; font-size:.75rem; color:#777; flex-shrink:0; }
+  .src { color:#c62828; font-weight:bold; }
+  @media(max-width:600px) {
+    .legend { bottom:.5rem; right:.5rem; font-size:.72rem; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>🗺️ 馬來西亞華人移民同鄉組織分布地圖</h1>
+  <p>共 63 個點位，依原鄉方言群著色 | 資料來源：Nanyang Data（CC BY-SA 4.0）</p>
+</header>
+<div id="map"></div>
+<div class="legend">
+  <h3>🌏 原鄉方言群</h3>
+  <div class="legend-item"><span class="dot" style="background:#e53935"></span>福建 Hokkien</div><div class="legend-item"><span class="dot" style="background:#1e88e5"></span>廣東 Cantonese</div><div class="legend-item"><span class="dot" style="background:#43a047"></span>客家 Hakka</div><div class="legend-item"><span class="dot" style="background:#fb8c00"></span>潮州 Teochew</div><div class="legend-item"><span class="dot" style="background:#8e24aa"></span>海南 Hainanese</div><div class="legend-item"><span class="dot" style="background:#00897b"></span>三江/江浙 Sanjiang</div>
+</div>
+<footer>
+  資料來源：<span class="src">Nanyang Data（CC BY-SA 4.0）</span> ·
+  Wolfgang Franke &amp; Tieh-fan Chen, <em>Chinese Epigraphic Materials in Malaysia</em> (1982–1987)
+</footer>
+
+<script>
+const map = L.map('map').setView([4.5, 109.5], 6);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 18,
+  attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+const markers = [{"lat": 3.120373, "lng": 101.699528, "color": "#1e88e5", "popup": "廣東義山<br><em>Kuangtung Cemetery, Kuang-tung i-shan</em><br>年代：1891<br>原鄉：廣東 Cantonese", "origin": "廣東 Cantonese"}, {"lat": 3.123904, "lng": 101.697307, "color": "#e53935", "popup": "福建義山<br><em>Fukien Cemetery, Fu-chien i-shan</em><br>年代：1918<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 3.144035, "lng": 101.696684, "color": "#1e88e5", "popup": "廣肇會館<br><em>Kuang-chao hui-kuan, Landsmannschaft of people fro</em><br>年代：1886<br>原鄉：廣東 Cantonese", "origin": "廣東 Cantonese"}, {"lat": 3.145656, "lng": 101.697445, "color": "#43a047", "popup": "惠州會館<br><em>Hui-chou hui-kuan, Landsmannschaft of people from </em><br>年代：1875<br>原鄉：客家 Hakka", "origin": "客家 Hakka"}, {"lat": 3.121321, "lng": 101.687636, "color": "#8e24aa", "popup": "瓊州會館<br><em>Ch'iung-chou hui-kuan, Landsmannschaft of people f</em><br>年代：1889<br>原鄉：海南 Hainanese", "origin": "海南 Hainanese"}, {"lat": 3.145252, "lng": 101.70647, "color": "#1e88e5", "popup": "番禺會館<br><em>P'an-yü hui-kuan, Landsmannschaft of people from P</em><br>年代：1927<br>原鄉：廣東 Cantonese", "origin": "廣東 Cantonese"}, {"lat": 3.148422, "lng": 101.698384, "color": "#e53935", "popup": "福建會館<br><em>Fu-chien hui-kuan, Landsmannschaft of Fukien peopl</em><br>年代：1932<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 3.170503, "lng": 101.697136, "color": "#fb8c00", "popup": "潮州八邑會館<br><em>Kuang-chao hui-kuan, Landsmannschaft of people fro</em><br>年代：1891<br>原鄉：潮州 Teochew", "origin": "潮州 Teochew"}, {"lat": 3.151877, "lng": 101.698427, "color": "#e53935", "popup": "安溪會館<br><em>An-ch'i hui-kuan, Landsmannschaft of people from A</em><br>年代：1929<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 1.863542, "lng": 102.965376, "color": "#1e88e5", "popup": "廣東義山<br><em>Kuang-tung i-shan, Cantonese cemetery</em><br>年代：1915<br>原鄉：廣東 Cantonese", "origin": "廣東 Cantonese"}, {"lat": 1.855418, "lng": 102.929594, "color": "#43a047", "popup": "茶陽會館回春醫社<br><em>Ch'a-yang hui-kuan Hui-ch'un i-she, hospital attac</em><br>年代：1917, 1926<br>原鄉：客家 Hakka", "origin": "客家 Hakka"}, {"lat": 6.11654, "lng": 100.363082, "color": "#e53935", "popup": "廣東暨汀州會館<br><em>Kuang-tung chi T'ing-chou hui-kuan, Landsmannschaf</em><br>年代：1852<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 2.2386, "lng": 102.225339, "color": "#8e24aa", "popup": "瓊崖義山, 瓊崖息鴻亭<br><em>Ch'iung-yai i-shan, Hainan Cemetery, Ch'iung-yai h</em><br>年代：1920<br>原鄉：海南 Hainanese", "origin": "海南 Hainanese"}, {"lat": 2.195871, "lng": 102.247389, "color": "#e53935", "popup": "福建會館<br><em>Fu-chien hui-kuan, Fukien Landsmannschaft</em><br>年代：1843<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 2.197507, "lng": 102.245664, "color": "#8e24aa", "popup": "瓊州會館<br><em>Ch'iung-chou hui-kuan, Landsmannschaft of people f</em><br>年代：1869<br>原鄉：海南 Hainanese", "origin": "海南 Hainanese"}, {"lat": 2.194681, "lng": 102.256894, "color": "#43a047", "popup": "應和會館<br><em>Ying-ho hui-kuan, Landsmannschaft of Hakka from Ch</em><br>年代：1916/17<br>原鄉：客家 Hakka", "origin": "客家 Hakka"}, {"lat": 2.197098, "lng": 102.246085, "color": "#43a047", "popup": "茶陽會館<br><em>Ch'a-yang hui-kuan, Landsmannschaft of Hakka peopl</em><br>年代：1810<br>原鄉：客家 Hakka", "origin": "客家 Hakka"}, {"lat": 2.728857, "lng": 101.940489, "color": "#43a047", "popup": "鵝城會館<br><em>T'ien shih-yeh kung, Temple of the Heavenly Master</em><br>年代：1871<br>原鄉：客家 Hakka", "origin": "客家 Hakka"}, {"lat": 2.728126, "lng": 101.941094, "color": "#8e24aa", "popup": "瓊州會館<br><em>Ch'iung-chou hui-kuan, the landsmanschaft of peopl</em><br>年代：1904<br>原鄉：海南 Hainanese", "origin": "海南 Hainanese"}, {"lat": 2.701618, "lng": 101.940092, "color": "#43a047", "popup": "海陸會館<br><em>Hai-lu hui-kuan, the landsmannschaft of people fro</em><br>年代：1936<br>原鄉：客家 Hakka", "origin": "客家 Hakka"}, {"lat": 4.171488, "lng": 102.042224, "color": "#43a047", "popup": "客屬義山<br><em>K'o-shu i-shan, Hakka cemetery</em><br>年代：1933<br>原鄉：客家 Hakka", "origin": "客家 Hakka"}, {"lat": 3.480838, "lng": 102.347137, "color": "#8e24aa", "popup": "瓊州會館<br><em>Ch'iung-chou hui-kuan, Landsmannschaft of Hainan p</em><br>年代：1926<br>原鄉：海南 Hainanese", "origin": "海南 Hainanese"}, {"lat": 5.441643, "lng": 100.297337, "color": "#e53935", "popup": "廣東暨汀州義山<br><em>Kuang-tung chi T'ing-chou i-shan, cemetery for Kua</em><br>年代：1790s<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 5.439108, "lng": 100.302074, "color": "#e53935", "popup": "福建義山<br><em>Fukien Cemeteries</em><br>年代：1805<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 5.418898, "lng": 100.340283, "color": "#43a047", "popup": "嘉應會館<br><em>Chia-ying hui-kuan, Hakka Landsmannschaft of Chia-</em><br>年代：1803<br>原鄉：客家 Hakka", "origin": "客家 Hakka"}, {"lat": 5.416656, "lng": 100.338219, "color": "#fb8c00", "popup": "潮州會館<br><em>Ch'ao-chou hui-kuan, Ch'ao-chou Landsmannschaft</em><br>年代：1864<br>原鄉：潮州 Teochew", "origin": "潮州 Teochew"}, {"lat": 5.420381, "lng": 100.334607, "color": "#8e24aa", "popup": "瓊州會館<br><em>Ch'iung-chou hui-kuan, Hainan-Landsmannschaft of C</em><br>年代：1860s<br>原鄉：海南 Hainanese", "origin": "海南 Hainanese"}, {"lat": 5.419202, "lng": 100.340448, "color": "#43a047", "popup": "增龍會館<br><em>Tseng-lung hui-kuan, Landsmannschaft of people fro</em><br>年代：1922<br>原鄉：客家 Hakka", "origin": "客家 Hakka"}, {"lat": 5.418284, "lng": 100.340672, "color": "#e53935", "popup": "廣東暨汀州會館<br><em>Kuang-tung chi T'ing-chou hui-kuan, Landsmannschaf</em><br>年代：1925-1934<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 5.419206, "lng": 100.323263, "color": "#43a047", "popup": "大埔同鄉會<br><em>Ta-p'u t'ung-hsiang-hui, Hakka Landsmannschaft of </em><br>年代：1936<br>原鄉：客家 Hakka", "origin": "客家 Hakka"}, {"lat": 5.413296, "lng": 100.33538, "color": "#e53935", "popup": "龍巖會館<br><em>Lung-yen hui-kuan, Landsmannschaft of people origi</em><br>年代：1929<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 5.415985, "lng": 100.325491, "color": "#e53935", "popup": "晉江會館<br><em>Chin-chiang hui-kuan, Landsmannschaft of people fr</em><br>年代：1919<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 5.418075, "lng": 100.328787, "color": "#43a047", "popup": "客屬公會<br><em>K'o-shu kung-hui, Landsmannschaft of all Hakka peo</em><br>年代：1939<br>原鄉：客家 Hakka", "origin": "客家 Hakka"}, {"lat": 5.413185, "lng": 100.335522, "color": "#e53935", "popup": "同安金厦公會<br><em>T'ung-an Chin Hsia kung-kui (Tong Aun Kim Har Asso</em><br>年代：1933<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 5.414598, "lng": 100.337252, "color": "#e53935", "popup": "龍山堂<br><em>Lung-shan t'ang (Leong San Tong), ancestral temple</em><br>年代：1851<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 4.504652, "lng": 101.141928, "color": "#e53935", "popup": "福建義山<br><em>Fu-chien i-shan, Fukien cemetery</em><br>年代：1898<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 4.595665, "lng": 101.076943, "color": "#43a047", "popup": "嘉應會館<br><em>Chia-ying hui-kuan, Hakka Landsmannschaft of Chia-</em><br>年代：02/01/1900<br>原鄉：客家 Hakka", "origin": "客家 Hakka"}, {"lat": 4.315567, "lng": 101.153085, "color": "#e53935", "popup": "福建公會<br><em>Fu-chien kung-hui, Fukien Landsmannschaft</em><br>年代：1934<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 4.327579, "lng": 101.156762, "color": "#e53935", "popup": "福建義山<br><em>Fu-chien i-shan, Fukien cemetery</em><br>年代：1897<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 4.830461, "lng": 100.755036, "color": "#1e88e5", "popup": "廣東義山<br><em>Kuang-tung i-shan</em><br>年代：1875<br>原鄉：廣東 Cantonese", "origin": "廣東 Cantonese"}, {"lat": 4.840389, "lng": 100.753212, "color": "#e53935", "popup": "福建義山<br><em>Fu-chien i-shan, Fukien cemetery</em><br>年代：1894<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 4.850256, "lng": 100.744457, "color": "#8e24aa", "popup": "瓊州會館<br><em>Ch'iung-chou hui-kuan, Hainan Landsmannschaft</em><br>年代：1881<br>原鄉：海南 Hainanese", "origin": "海南 Hainanese"}, {"lat": 4.85329, "lng": 100.743752, "color": "#1e88e5", "popup": "廣東會館<br><em>Kuang-tung hui-kuan, Landsmannschaft of people fro</em><br>年代：1887<br>原鄉：廣東 Cantonese", "origin": "廣東 Cantonese"}, {"lat": 4.848396, "lng": 100.735147, "color": "#e53935", "popup": "福建會館<br><em>Fu-chien hui-kuan, Landsmannschaft of Fukien peopl</em><br>年代：1931<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 6.438608, "lng": 100.193699, "color": "#e53935", "popup": "福建會館<br><em>Fu-chien hui-kuan, Landsmannschaft of people from </em><br>年代：1962<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 3.136812, "lng": 101.453264, "color": "#1e88e5", "popup": "廣東義山<br><em>Kuang-tung i-shan, Kuangtung cemetery</em><br>年代：1884<br>原鄉：廣東 Cantonese", "origin": "廣東 Cantonese"}, {"lat": 3.052667, "lng": 101.461727, "color": "#e53935", "popup": "閩南公所<br><em>Min-nan Kung-so, the Landsmanschaft of peaple from</em><br>年代：1927<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 3.044417, "lng": 101.446026, "color": "#fb8c00", "popup": "潮州八邑會館<br><em>Ch'ao-chou pa-i hui-kuan, Ch'ao-chou Landsmannscha</em><br>年代：1947<br>原鄉：潮州 Teochew", "origin": "潮州 Teochew"}, {"lat": 3.014637, "lng": 101.436525, "color": "#43a047", "popup": "大埔同鄉會<br><em>Ta-p'u t'ung-hsiang-hui (Tai Pu Association), Land</em><br>年代：1938<br>原鄉：客家 Hakka", "origin": "客家 Hakka"}, {"lat": 3.040293, "lng": 101.452137, "color": "#1e88e5", "popup": "廣肇會館<br><em>Kuang-Chao hui-kuan, Landsmannschaft of people fro</em><br>年代：1950<br>原鄉：廣東 Cantonese", "origin": "廣東 Cantonese"}, {"lat": 3.042203, "lng": 101.4481, "color": "#8e24aa", "popup": "瓊州會館<br><em>Ch'iung-chou hui-kuan (Kheng Chew Hoey Kuan), Hain</em><br>年代：1916<br>原鄉：海南 Hainanese", "origin": "海南 Hainanese"}, {"lat": 2.996899, "lng": 101.789601, "color": "#e53935", "popup": "福建公所<br><em>Fu-chien kung-so, Fukien Landsmannschaft</em><br>年代：1937<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 5.335043, "lng": 103.136783, "color": "#8e24aa", "popup": "瓊州會館<br><em>Ch'iung-chou hui-kuan (Kheng Chew Hwee Kuan), Hain</em><br>年代：1860<br>原鄉：海南 Hainanese", "origin": "海南 Hainanese"}, {"lat": 5.329756, "lng": 103.137387, "color": "#e53935", "popup": "福建會館<br><em>Fu-chien hui-kuan, Fukien Landsmannschaft</em><br>年代：1958<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 5.277479, "lng": 115.243259, "color": "#8e24aa", "popup": "瓊州會館<br><em>Ch'iung-chou hui-kuan, Hainan Landsmannschaft</em><br>年代：1890<br>原鄉：海南 Hainanese", "origin": "海南 Hainanese"}, {"lat": 5.863846, "lng": 118.119155, "color": "#8e24aa", "popup": "瓊州會館<br><em>Ch'iung-chou hui-kuan (Keng Chew Association), Hai</em><br>年代：1958<br>原鄉：海南 Hainanese", "origin": "海南 Hainanese"}, {"lat": 1.46354, "lng": 110.318155, "color": "#e53935", "popup": "福建義山<br><em>Fu-chien i-shan, Fukien cemetery</em><br>年代：1876<br>原鄉：福建 Hokkien", "origin": "福建 Hokkien"}, {"lat": 1.456708, "lng": 110.306948, "color": "#fb8c00", "popup": "潮州義山<br><em>Ch'ao-chou I-shan, Ch'ao-chou cemetery</em><br>年代：1884<br>原鄉：潮州 Teochew", "origin": "潮州 Teochew"}, {"lat": 1.370684, "lng": 110.321935, "color": "#43a047", "popup": "客屬義山<br><em>K'o-shu i-shan, Hakka cemetery</em><br>年代：1937<br>原鄉：客家 Hakka", "origin": "客家 Hakka"}, {"lat": 1.55808, "lng": 110.346248, "color": "#8e24aa", "popup": "瓊州公會<br><em>Ch'iung-chou kung-hui (Kheng Chew Association), Ha</em><br>年代：1885<br>原鄉：海南 Hainanese", "origin": "海南 Hainanese"}, {"lat": 1.552933, "lng": 110.364206, "color": "#1e88e5", "popup": "廣肇惠會館<br><em>Kuang Chao Hui hui-kuan, Landsmannschaft of people</em><br>年代：1916<br>原鄉：廣東 Cantonese", "origin": "廣東 Cantonese"}, {"lat": 4.390365, "lng": 113.985642, "color": "#43a047", "popup": "客屬公會<br><em>K'o-shu kung-hui, Hakka Landsmannschaft</em><br>年代：1950<br>原鄉：客家 Hakka", "origin": "客家 Hakka"}, {"lat": 4.421345, "lng": 114.004864, "color": "#00897b", "popup": "福州公會<br><em>Fu-chou kung-hui, (Miri Foochow Association), Land</em><br>年代：1951<br>原鄉：三江/江浙 Sanjiang", "origin": "三江/江浙 Sanjiang"}];
+
+function coloredIcon(color) {
+  return L.divIcon({
+    html: `<svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="11" cy="11" r="9" fill="${color}" stroke="#fff" stroke-width="2"/>
+    </svg>`,
+    className: '',
+    iconSize: [22, 22],
+    iconAnchor: [11, 11]
+  });
+}
+
+markers.forEach(m => {
+  L.marker([m.lat, m.lng], { icon: coloredIcon(m.color) })
+    .addTo(map)
+    .bindPopup(`<div style="min-width:180px">${m.popup}</div>`);
+});
+</script>
+</body>
+</html>

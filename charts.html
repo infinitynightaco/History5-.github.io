@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>馬來西亞 Franke 數據集分析</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans TC', sans-serif; background: #f7f8fa; color: #222; }
+  header { background: #1a237e; color: #fff; padding: 1.5rem 2rem; }
+  header h1 { font-size: 1.5rem; margin-bottom: .3rem; }
+  header p { font-size: .9rem; opacity: .8; }
+  .container { max-width: 960px; margin: 2rem auto; padding: 0 1rem; }
+  .card { background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,.1);
+           padding: 1.5rem; margin-bottom: 2rem; }
+  .card h2 { font-size: 1.1rem; margin-bottom: 1rem; color: #1a237e; border-left: 4px solid #1a237e; padding-left: .6rem; }
+  .chart-wrap { position: relative; height: 320px; }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+  .summary-box { background: #e8eaf6; border-radius: 8px; padding: 1rem; text-align: center; }
+  .summary-box .num { font-size: 2rem; font-weight: bold; color: #1a237e; }
+  .summary-box .label { font-size: .8rem; color: #555; margin-top: .2rem; }
+  footer { text-align: center; padding: 2rem 1rem; font-size: .8rem; color: #888; }
+  .src { color: #c62828; font-weight: bold; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🏛️ 馬來西亞華人遺址數據集分析</h1>
+  <p>Wolfgang Franke &amp; Tieh-fan Chen（1982–1987）書錄遺址統計</p>
+</header>
+<div class="container">
+
+  <div class="summary-grid">
+    <div class="summary-box"><div class="num">397</div><div class="label">總點位數</div></div>
+    <div class="summary-box"><div class="num">314</div><div class="label">已定位點位</div></div>
+    <div class="summary-box"><div class="num">83</div><div class="label">無座標點位</div></div>
+    <div class="summary-box"><div class="num">1622–1974</div><div class="label">年代跨度</div></div>
+  </div>
+
+  <div class="card">
+    <h2>📊 點位類型分布</h2>
+    <p style="font-size:.85rem;color:#555;margin-bottom:1rem;">依據 siteNameAlt1 欄位關鍵字自動分類（廟宇/會館/義山/學校/其他）</p>
+    <div class="chart-wrap">
+      <canvas id="typeChart"></canvas>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📅 最早銘刻年代分布（依年代）</h2>
+    <p style="font-size:.85rem;color:#555;margin-bottom:1rem;">以 Franke &amp; Chen 書錄各遺址最早銘刻物年份統計；1860–1920 年代為建設高峰期。</p>
+    <div class="chart-wrap">
+      <canvas id="decadeChart"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  資料來源：<span class="src">Nanyang Data（CC BY-SA 4.0）</span> ·
+  原始文獻：Wolfgang Franke &amp; Tieh-fan Chen, <em>Chinese Epigraphic Materials in Malaysia</em> (1982–1987) ·
+  地理定位：Kenneth Dean, Marcus Bingenheimer et al., NUS (2024)
+</footer>
+
+<script>
+const typeLabels = ["廟宇/宗教場所", "義山/墓地", "其他", "會館/同鄉組織", "學校"];
+const typeValues = [260, 90, 23, 20, 4];
+const decadeLabels = ["1620s", "1670s", "1720s", "1760s", "1770s", "1790s", "1800s", "1810s", "1820s", "1830s", "1840s", "1850s", "1860s", "1870s", "1880s", "1890s", "1900s", "1910s", "1920s", "1930s", "1940s", "1950s", "1960s", "1970s"];
+const decadeValues = [1, 1, 1, 1, 1, 2, 4, 3, 1, 4, 8, 9, 24, 16, 37, 47, 40, 41, 33, 27, 24, 28, 8, 1];
+
+const palette = ['#1a237e','#283593','#c62828','#2e7d32','#f9a825','#6a1b9a','#00838f'];
+
+new Chart(document.getElementById('typeChart'), {
+  type: 'bar',
+  data: {
+    labels: typeLabels,
+    datasets: [{ label: '點位數', data: typeValues,
+      backgroundColor: palette.slice(0, typeValues.length),
+      borderRadius: 6 }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y} 個點位` } } },
+    scales: {
+      y: { beginAtZero: true, title: { display: true, text: '點位數量' } },
+      x: { ticks: { font: { size: 11 } } }
+    }
+  }
+});
+
+new Chart(document.getElementById('decadeChart'), {
+  type: 'bar',
+  data: {
+    labels: decadeLabels,
+    datasets: [{ label: '點位數', data: decadeValues,
+      backgroundColor: '#1a237e',
+      borderRadius: 4 }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, title: { display: true, text: '點位數量' } },
+      x: { ticks: { font: { size: 10 } } }
+    }
+  }
+});
+</script>
+</body>
+</html>

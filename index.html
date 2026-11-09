@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>馬來西亞華人遺址數據集 — Franke & Chen (1982–1987)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    background: #f5f5f5;
+    color: #222;
+    min-height: 100vh;
+  }
+  header {
+    background: linear-gradient(135deg, #1a237e 0%, #283593 60%, #1b5e20 100%);
+    color: #fff;
+    padding: 3rem 2rem 2.5rem;
+    text-align: center;
+  }
+  header h1 { font-size: clamp(1.4rem, 4vw, 2.2rem); margin-bottom: .6rem; }
+  header p  { font-size: clamp(.8rem, 2.5vw, 1rem); opacity: .85; line-height: 1.6; max-width: 680px; margin: 0 auto; }
+  .badge {
+    display: inline-block; margin-top: 1rem;
+    background: rgba(255,255,255,.18); border-radius: 20px;
+    padding: .3rem .9rem; font-size: .8rem; letter-spacing: .03em;
+  }
+
+  .container { max-width: 900px; margin: 2.5rem auto; padding: 0 1.2rem; }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.4rem;
+  }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.1);
+    overflow: hidden;
+    transition: transform .18s, box-shadow .18s;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,.15);
+  }
+  .card-header {
+    padding: 1.4rem 1.4rem .8rem;
+    display: flex; align-items: center; gap: .8rem;
+  }
+  .card-icon {
+    font-size: 2.2rem;
+    width: 54px; height: 54px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+  .card h2 { font-size: 1rem; }
+  .card p  { font-size: .82rem; color: #555; line-height: 1.6; }
+  .card-body { padding: 0 1.4rem 1.4rem; flex: 1; }
+  .card-stats {
+    display: flex; gap: .6rem; flex-wrap: wrap;
+    margin-top: .8rem;
+  }
+  .stat {
+    background: #f0f0f0; border-radius: 6px;
+    padding: .2rem .6rem; font-size: .75rem; color: #444;
+  }
+  .card-footer {
+    padding: .7rem 1.4rem;
+    border-top: 1px solid #eee;
+    font-size: .78rem; color: #888;
+    display: flex; align-items: center; gap: .4rem;
+  }
+
+  /* Card accent colors */
+  .c-charts .card-icon  { background: #e8eaf6; }
+  .c-assoc  .card-icon  { background: #f3e5f5; }
+  .c-map    .card-icon  { background: #e8f5e9; }
+
+  .about {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    font-size: .88rem;
+    line-height: 1.8;
+    color: #444;
+  }
+  .about h2 { font-size: 1rem; color: #1a237e; margin-bottom: .6rem; }
+  .about a  { color: #1a237e; }
+
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: .78rem;
+    color: #888;
+  }
+  .src { color: #c62828; font-weight: bold; }
+
+  @media (max-width: 480px) {
+    header { padding: 2rem 1rem 1.8rem; }
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏛️ 馬來西亞華人遺址數據集</h1>
+  <p>Wolfgang Franke &amp; Tieh-fan Chen（1982–1987）書錄 397 個遺址<br>
+     地理定位由 Kenneth Dean、Marcus Bingenheimer 等人於 2024 年完成</p>
+  <span class="badge">📍 397 個點位 · 1622–1974 年代</span>
+</header>
+
+<div class="container">
+  <div class="cards">
+
+    <a class="card c-charts" href="charts.html">
+      <div class="card-header">
+        <div class="card-icon">📊</div>
+        <div>
+          <h2>點位類型與年代分析</h2>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>以長條圖呈現各類點位（廟宇、義山、會館、學校）的數量分布，以及最早銘刻年代的時間分布。</p>
+        <div class="card-stats">
+          <span class="stat">廟宇 257 筆</span>
+          <span class="stat">義山 90 筆</span>
+          <span class="stat">高峰：1880–1920</span>
+        </div>
+      </div>
+      <div class="card-footer">📈 開啟長條圖 →</div>
+    </a>
+
+    <a class="card c-assoc" href="associations.html">
+      <div class="card-header">
+        <div class="card-icon">🧭</div>
+        <div>
+          <h2>移民同鄉組織分析</h2>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>以關鍵字篩選出移民同鄉團體，再進一步辨識福建、廣東、客家、潮州、海南等原鄉方言群。</p>
+        <div class="card-stats">
+          <span class="stat">第一步 145 筆</span>
+          <span class="stat">第二步 75 筆</span>
+          <span class="stat">六大方言群</span>
+        </div>
+      </div>
+      <div class="card-footer">🔍 開啟同鄉分析 →</div>
+    </a>
+
+    <a class="card c-map" href="map.html">
+      <div class="card-header">
+        <div class="card-icon">🗺️</div>
+        <div>
+          <h2>移民原鄉分布地圖</h2>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>以互動地圖呈現可識別原鄉的 63 個同鄉組織點位，依方言群著色，點擊標記可查看詳情。</p>
+        <div class="card-stats">
+          <span class="stat">63 個點位</span>
+          <span class="stat">OpenStreetMap</span>
+          <span class="stat">手機可用</span>
+        </div>
+      </div>
+      <div class="card-footer">🗺️ 開啟地圖 →</div>
+    </a>
+
+  </div>
+
+  <div class="about">
+    <h2>📖 關於此數據集</h2>
+    <p>
+      本數據集收錄德國漢學家 <strong>Wolfgang Franke（傅吾康，1912–2007）</strong>
+      與 <strong>Tieh-fan Chen（陳鐵凡）</strong> 所編《Chinese Epigraphic Materials in Malaysia》
+      （馬來西亞華人碑銘資料，1982–1987，共 3 卷）中書錄的所有 397 個遺址。
+      2024 年由新加坡國立大學 Kenneth Dean（丁荷生）、Marcus Bingenheimer（馬徳偉）
+      及研究生團隊（汪俊霖、吴菲領導）進行地理定位，完成 314 個點位的座標化。
+    </p>
+    <p style="margin-top:.6rem">
+      資料來源：<a href="https://nanyang-data.info/" target="_blank">Nanyang Data</a> ·
+      授權條款：<a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a> ·
+      聯絡：m.bingenheimer@gmail.com
+    </p>
+  </div>
+</div>
+
+<footer>
+  資料來源：<span class="src">Nanyang Data（CC BY-SA 4.0）</span> ·
+  Wolfgang Franke &amp; Tieh-fan Chen, <em>Chinese Epigraphic Materials in Malaysia</em> (1982–1987) ·
+  Kenneth Dean, Marcus Bingenheimer et al., NUS (2024)
+</footer>
+
+</body>
+</html>
